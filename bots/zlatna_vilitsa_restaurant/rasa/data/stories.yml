@@ -1,0 +1,64 @@
+version: "3.1"
+
+stories:
+- story: greet and ask menu
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_menu
+  - action: utter_menu
+
+- story: ask promotions
+  steps:
+  - intent: ask_promotions
+  - action: utter_promotions
+
+- story: ask reservation
+  steps:
+  - intent: ask_reservation
+  - action: utter_reservation
+
+- story: ask delivery
+  steps:
+  - intent: ask_delivery
+  - action: utter_delivery
+
+- story: ask working hours
+  steps:
+  - intent: ask_working_hours
+  - action: utter_working_hours
+
+- story: ask location
+  steps:
+  - intent: ask_location
+  - action: utter_location
+
+- story: ask contact
+  steps:
+  - intent: ask_contact
+  - action: utter_contact
+
+- story: ask prices
+  steps:
+  - intent: ask_prices
+  - action: utter_prices
+
+- story: ask payment
+  steps:
+  - intent: ask_payment
+  - action: utter_payment
+
+- story: ask vegetarian
+  steps:
+  - intent: ask_vegetarian
+  - action: utter_vegetarian
+
+- story: thanks
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+
+- story: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye

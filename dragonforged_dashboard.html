@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🐉 DragonForgedDreams Bot Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        
+        .bots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .bot-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .bot-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.3);
+        }
+        
+        .bot-icon {
+            font-size: 4em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .bot-name {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .bot-description {
+            color: #666;
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+        
+        .bot-features {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .bot-features h3 {
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+            color: #555;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li:before {
+            content: "✅ ";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .bot-port {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 1em;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .bot-button {
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+        
+        .bot-button:hover {
+            background: #0056b3;
+        }
+        
+        .comparison {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .comparison h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table th {
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🐉 DragonForgedDreams Bot Demo</h1>
+        <p>Два различни подхода за представяне на услугите на dragonforgeddreams.com</p>
+    </div>
+    
+    <div class="bots-grid">
+        <div class="bot-card" onclick="openBot('dragonforged_bot_v1')">
+            <div class="bot-icon">🏢</div>
+            <div class="bot-name">DragonForgedDreams Bot V1</div>
+            <div class="bot-description">Професионален подход - фокус върху бизнес решения и общи услуги</div>
+            
+            <div class="bot-features">
+                <h3>Основни функции:</h3>
+                <ul class="feature-list">
+                    <li>8 основни интента</li>
+                    <li>Общи услуги и цени</li>
+                    <li>Чатботове и сайтове</li>
+                    <li>Безплатна консултация</li>
+                    <li>Професионални отговори</li>
+                </ul>
+            </div>
+            
+            <div class="bot-port">Порт: 6001</div>
+            <button class="bot-button">Отвори DragonForgedDreams Bot V1</button>
+        </div>
+        
+        <div class="bot-card" onclick="openBot('dragonforged_bot_v2')">
+            <div class="bot-icon">📱</div>
+            <div class="bot-name">DragonForgedDreams Bot V2</div>
+            <div class="bot-description">Детайлен подход - специфични услуги и точни цени</div>
+            
+            <div class="bot-features">
+                <h3>Основни функции:</h3>
+                <ul class="feature-list">
+                    <li>13 специализирани интента</li>
+                    <li>QR меню хостинг</li>
+                    <li>Telegram ботове</li>
+                    <li>PWA приложения</li>
+                    <li>Детайлни цени и пакети</li>
+                </ul>
+            </div>
+            
+            <div class="bot-port">Порт: 6002</div>
+            <button class="bot-button">Отвори DragonForgedDreams Bot V2</button>
+        </div>
+    </div>
+    
+    <div class="comparison">
+        <h2>Сравнение между двата подхода</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Характеристика</th>
+                    <th>Bot V1</th>
+                    <th>Bot V2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Брой интента</strong></td>
+                    <td>8 основни</td>
+                    <td>13 специализирани</td>
+                </tr>
+                <tr>
+                    <td><strong>Подход</strong></td>
+                    <td>Общ бизнес фокус</td>
+                    <td>Детайлни специфични услуги</td>
+                </tr>
+                <tr>
+                    <td><strong>Цени</strong></td>
+                    <td>Препратка към pricing страница</td>
+                    <td>Конкретни цени и пакети</td>
+                </tr>
+                <tr>
+                    <td><strong>QR меню</strong></td>
+                    <td>Общо споменаване</td>
+                    <td>Детайлни пакети и цени</td>
+                </tr>
+                <tr>
+                    <td><strong>Telegram ботове</strong></td>
+                    <td>Като част от услугите</td>
+                    <td>Отделен интент с детайли</td>
+                </tr>
+                <tr>
+                    <td><strong>PWA</strong></td>
+                    <td>Не се споменава</td>
+                    <td>Специален интент</td>
+                </tr>
+                <tr>
+                    <td><strong>Поддръжка</strong></td>
+                    <td>Общо споменаване</td>
+                    <td>Конкретна цена (50 лв/месец)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="footer">
+        <p>© 2025 DragonForgedDreams Bot Demo - Демонстрация на различни подходи за представяне на услуги</p>
+    </div>
+
+    <script>
+        function openBot(botName) {
+            const botUrls = {
+                'dragonforged_bot_v1': 'bots/dragonforged_bot_v1/web/index.html',
+                'dragonforged_bot_v2': 'bots/dragonforged_bot_v2/web/index.html'
+            };
+            
+            window.open(botUrls[botName], '_blank');
+        }
+    </script>
+</body>
+</html>
+

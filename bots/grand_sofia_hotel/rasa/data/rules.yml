@@ -1,0 +1,82 @@
+version: "3.1"
+
+rules:
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say thanks anytime the user says thanks
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+
+- rule: Respond to greet intent
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Respond to ask_rooms intent
+  steps:
+  - intent: ask_rooms
+  - action: utter_rooms
+
+- rule: Respond to ask_services intent
+  steps:
+  - intent: ask_services
+  - action: utter_services
+
+- rule: Respond to ask_reservation intent
+  steps:
+  - intent: ask_reservation
+  - action: utter_reservation
+
+- rule: Respond to ask_promotions intent
+  steps:
+  - intent: ask_promotions
+  - action: utter_promotions
+
+- rule: Respond to ask_location intent
+  steps:
+  - intent: ask_location
+  - action: utter_location
+
+- rule: Respond to ask_contact intent
+  steps:
+  - intent: ask_contact
+  - action: utter_contact
+
+- rule: Respond to ask_prices intent
+  steps:
+  - intent: ask_prices
+  - action: utter_prices
+
+- rule: Respond to ask_parking intent
+  steps:
+  - intent: ask_parking
+  - action: utter_parking
+
+- rule: Respond to ask_breakfast intent
+  steps:
+  - intent: ask_breakfast
+  - action: utter_breakfast
+
+- rule: Respond to ask_pool intent
+  steps:
+  - intent: ask_pool
+  - action: utter_pool
+
+- rule: Respond to ask_spa intent
+  steps:
+  - intent: ask_spa
+  - action: utter_spa
+
+- rule: Respond to ask_wifi intent
+  steps:
+  - intent: ask_wifi
+  - action: utter_wifi
+
+- rule: Respond to ask_pets intent
+  steps:
+  - intent: ask_pets
+  - action: utter_pets

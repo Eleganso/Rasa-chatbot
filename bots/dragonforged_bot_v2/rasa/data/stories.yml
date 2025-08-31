@@ -1,0 +1,64 @@
+version: "3.1"
+
+stories:
+- story: about services
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_services
+  - action: utter_services
+
+- story: price inquiry
+  steps:
+  - intent: ask_pricing
+  - action: utter_pricing
+
+- story: qr menu inquiry
+  steps:
+  - intent: ask_qr_menu
+  - action: utter_qr_menu
+
+- story: chatbot inquiry
+  steps:
+  - intent: ask_chatbots
+  - action: utter_chatbots
+
+- story: website inquiry
+  steps:
+  - intent: ask_website
+  - action: utter_website
+
+- story: seo inquiry
+  steps:
+  - intent: ask_seo
+  - action: utter_seo
+
+- story: telegram bots inquiry
+  steps:
+  - intent: ask_telegram_bots
+  - action: utter_telegram_bots
+
+- story: pwa inquiry
+  steps:
+  - intent: ask_pwa
+  - action: utter_pwa
+
+- story: consultation inquiry
+  steps:
+  - intent: ask_consultation
+  - action: utter_consultation
+
+- story: support inquiry
+  steps:
+  - intent: ask_support
+  - action: utter_support
+
+- story: contact inquiry
+  steps:
+  - intent: ask_contact
+  - action: utter_contact
+
+- story: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye

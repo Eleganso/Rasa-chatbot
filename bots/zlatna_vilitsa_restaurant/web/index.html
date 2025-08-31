@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ресторант "Златна вилица" - Чатбот</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #e74c3c 0%, #fd79a8 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #e74c3c, #fd79a8);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-header::before {
+            content: '🍽️';
+            position: absolute;
+            left: 20px;
+            font-size: 24px;
+        }
+
+        .chat-header::after {
+            content: '⭐';
+            position: absolute;
+            right: 20px;
+            font-size: 24px;
+        }
+
+        .restaurant-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .restaurant-tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, #e74c3c, #fd79a8);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 18px 18px 18px 5px;
+            max-width: 80%;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background: #fff3cd;
+            color: #333;
+            padding: 12px 16px;
+            border-radius: 18px 18px 5px 18px;
+            max-width: 80%;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .quick-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-btn {
+            background: linear-gradient(135deg, #e74c3c, #fd79a8);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 4px solid #e74c3c;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .menu-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .menu-description {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .menu-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .promotion-badge {
+            background: linear-gradient(135deg, #e74c3c, #fd79a8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+
+        .special-badge {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #666;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .message-input:focus {
+            border-color: #e74c3c;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #e74c3c, #fd79a8);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .category-header {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 10px 0 5px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="restaurant-name">Ресторант "Златна вилица"</div>
+            <div class="restaurant-tagline">Автентични вкусове и топла атмосфера</div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message">
+                <div class="bot-message">
+                    Добре дошли в ресторант "Златна вилица"! 🍽️ Аз съм Марко, вашият кулинарен помощник! Как мога да ви обслужа днес?
+                </div>
+                <div class="quick-buttons">
+                    <button class="quick-btn" onclick="askQuestion('меню')">📋 Меню</button>
+                    <button class="quick-btn" onclick="askQuestion('промоции')">🔥 Промоции</button>
+                    <button class="quick-btn" onclick="askQuestion('резервация')">🪑 Резервация</button>
+                    <button class="quick-btn" onclick="askQuestion('доставка')">🚚 Доставка</button>
+                    <button class="quick-btn" onclick="askQuestion('работно време')">⏰ Работно време</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-container">
+                <input type="text" class="message-input" id="messageInput" placeholder="Напишете вашето съобщение...">
+                <button class="send-btn" onclick="sendMessage()">Изпрати</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+
+        const responses = {
+            'меню': `🍽️ **НАШЕТО МЕНЮ** 🍽️
+
+<div class="category-header">🥗 ПРЕДЯСТИЯ И САЛАТИ</div>
+
+<div class="menu-card">
+    <div class="menu-title">Шопска салата</div>
+    <div class="menu-description">Домати, краставици, чушки, лук, сирене</div>
+    <div class="menu-price">8.50 лв</div>
+</div>
+
+<div class="menu-card">
+    <div class="menu-title">Капрезе <span class="special-badge">ХИТ</span></div>
+    <div class="menu-description">Моцарела, домати, босилек, балсамов оцет</div>
+    <div class="menu-price">12.00 лв</div>
+</div>
+
+<div class="category-header">🍲 ОСНОВНИ ЯСТИЯ</div>
+
+<div class="menu-card">
+    <div class="menu-title">Мусака <span class="special-badge">СПЕЦИАЛИТЕТ</span></div>
+    <div class="menu-description">Традиционна българска мусака с кайма и картофи</div>
+    <div class="menu-price">16.50 лв</div>
+</div>
+
+<div class="menu-card">
+    <div class="menu-title">Пъстърва на скара</div>
+    <div class="menu-description">Прясна пъстърва с билки и лимон</div>
+    <div class="menu-price">22.00 лв</div>
+</div>
+
+<div class="menu-card">
+    <div class="menu-title">Телешки стек</div>
+    <div class="menu-description">200г телешко месо с гарнитура по избор</div>
+    <div class="menu-price">28.00 лв</div>
+</div>
+
+<div class="category-header">🍕 ПИЦА</div>
+
+<div class="menu-card">
+    <div class="menu-title">Маргарита</div>
+    <div class="menu-description">Доматен сос, моцарела, босилек</div>
+    <div class="menu-price">14.00 лв</div>
+</div>
+
+<div class="menu-card">
+    <div class="menu-title">Пица "Златна вилица" <span class="special-badge">АВТОРСКА</span></div>
+    <div class="menu-description">Прошуто, рукола, пармезан, сушени домати</div>
+    <div class="menu-price">19.50 лв</div>
+</div>`,
+
+            'промоции': `🔥 **ТЕКУЩИ ПРОМОЦИИ** 🔥
+
+<div class="menu-card">
+    <div class="menu-title">🍽️ Бизнес меню (11:30-15:00)
+        <span class="promotion-badge">ВСЕКИ ДЕН</span>
+    </div>
+    <div class="menu-description">Супа + основно ястие + салата + десерт + кафе</div>
+    <div class="menu-price">18.90 лв</div>
+</div>
+
+<div class="menu-card">
+    <div class="menu-title">🍕 Пица Мания (петък и събота)
+        <span class="promotion-badge">-30%</span>
+    </div>
+    <div class="menu-description">Всички пици с 30% отстъпка след 20:00ч</div>
+    <div class="menu-price">от 9.80 лв</div>
+</div>
+
+<div class="menu-card">
+    <div class="menu-title">👨‍👩‍👧‍👦 Семейно меню
+        <span class="promotion-badge">ИКОНОМИЯ</span>
+    </div>
+    <div class="menu-description">2 основни ястия + 2 салати + 2 десерта + лимонада</div>
+    <div class="menu-price">55.00 лв (вместо 65 лв)</div>
+</div>
+
+<div class="menu-card">
+    <div class="menu-title">🎂 Рожден ден специал
+        <span class="promotion-badge">ПОДАРЪК</span>
+    </div>
+    <div class="menu-description">Безплатен десерт за празникаря + свещичка</div>
+    <div class="menu-price">При поръчка от мин. 30 лв</div>
+</div>
+
+<div class="menu-card">
+    <div class="menu-title">🍻 Happy Hour (17:00-19:00)
+        <span class="promotion-badge">-40%</span>
+    </div>
+    <div class="menu-description">Всички напитки с 40% отстъпка</div>
+    <div class="menu-price">Понеделник до четвъртък</div>
+</div>
+
+*Промоциите не се комбинират помежду си*`,
+
+            'резервация': `🪑 **РЕЗЕРВАЦИЯ НА МАСА** 🪑
+
+**Можете да резервирате маса по следните начини:**
+
+📞 **Телефон:** 02/123-45-67
+📱 **WhatsApp:** 0877 654 321
+📧 **Имейл:** rezervacia@zlatnavilitsa.bg
+💻 **Онлайн:** www.zlatnavilitsa.bg/rezervacia
+
+**Или директно тук! Кажете ми:**
+• 👥 За колко души е масата?
+• 📅 Коя дата ви интересува?
+• ⏰ В колко часа?
+
+🌟 **Свободни маси днес:**
+• 18:30 - маса за 4 души
+• 19:15 - маса за 2 души
+• 20:00 - маса за 6 души
+
+🎪 **Имаме и:**
+• 🎉 Салон за празници (до 30 души)
+• 🌸 Летна градина (сезонно)
+• 👶 Детски кът и столчета
+
+**💡 Препоръки:**
+• За петък и събота - резервирайте поне 2 дни предварително
+• За празници - резервация мин. 1 седмица предварително
+• Безплатна отмяна до 2 часа преди часа на резервацията`,
+
+            'доставка': `🚚 **ДОСТАВКА** 🚚
+
+**📍 Доставяме в следните райони:**
+• Център - 2.50 лв
+• Лозенец, Овча купел - 3.50 лв  
+• Люлин, Дружба - 4.50 лв
+• Студентски град - 4.50 лв
+
+**⏰ Работно време за доставки:**
+• Понеделник-четвъртък: 11:30-23:00
+• Петък-събота: 11:30-00:00
+• Неделя: 12:00-23:00
+
+**🕐 Време за доставка:**
+• 30-45 мин в центъра
+• 45-60 мин в другите райони
+
+**💰 Минимална поръчка:** 25 лв
+**🆓 Безплатна доставка:** при поръчка над 50 лв
+
+**📱 Как да поръчате:**
+• Обадете се на: 0877 654 321
+• Сайт: www.zlatnavilitsa.bg/delivery  
+• Или кажете тук какво искате! 😊
+
+**🍱 Популярни за доставка:**
+• Пици - запазват температурата си
+• Сандвичи и бургери
+• Салати в херметични кутии
+• Десерти и напитки
+
+*Плащане в брой или с карта на доставката*`,
+
+            'работно време': `⏰ **РАБОТНО ВРЕМЕ** ⏰
+
+**🍽️ РЕСТОРАНТ:**
+**Понеделник - Четвъртък:** 11:30 - 23:00
+**Петък - Събота:** 11:30 - 00:00
+**Неделя:** 12:00 - 23:00
+
+**☕ БАР ЗОНА:**
+**Всеки ден:** 11:30 - последният клиент
+
+**🚚 ДОСТАВКИ:**
+**Понеделник - Четвъртък:** 11:30 - 23:00  
+**Петък - Събота:** 11:30 - 00:00
+**Неделя:** 12:00 - 23:00
+
+**📍 Намираме се на:**
+ул. "Граф Игнатиев" 15, София (до НДК)
+
+**🚗 ПАРКИНГ:**
+• Платен паркинг в синята зона
+• Най-близо: подземен паркинг на НДК (5 мин пеша)
+
+**🚇 ОБЩЕСТВЕН ТРАНСПОРТ:**
+• Метро: "НДК" (2 мин пеша)
+• Автобуси: 9, 72, 76, 94
+• Трамваи: 7, 20
+
+📞 **За контакт:** 02/123-45-67
+📧 **Имейл:** info@zlatnavilitsa.bg
+
+*През почивните дни може да имаме удължено работно време*`,
+
+            'здравейте': 'Здравейте и добре дошли! 🍽️ Радвам се да ви видя в нашия ресторант! Как мога да ви помогна?',
+            'благодаря': 'Няма защо! 😊 Винаги е удоволствие да обслужвам гладни и доволни клиенти! Има ли още въпроси?',
+            'довиждане': 'Довиждане! 👋 Чакаме ви скоро в "Златна вилица"! Приятен ден и добър апетит! 🍽️',
+            'адрес': 'Намираме се на ул. "Граф Игнатиев" 15, София, точно до НДК. Лесно достъпен с метро станция "НДК"! 📍',
+            'телефон': 'Можете да се свържете с нас на: 📞 02/123-45-67 или 📱 WhatsApp: 0877 654 321',
+            'цени': 'Предястията са 8-15 лв, основните ястия 16-28 лв, пиците 14-20 лв. Имаме и бизнес меню за 18.90 лв!',
+            'карти': 'Приемаме всички видове карти - Visa, Mastercard, и т.н. Можете да плащате и в брой, разбира се! 💳',
+            'вегетариански': 'Разбира се! Имаме прекрасни вегетариански опции - салати, вегетариански пици, паста със зеленчуци и още!',
+
+            'default': `Съжалявам, не разбрах точно въпроса ви! 🤔
+
+Можете да попитате за:
+• 📋 Меню и цени
+• 🔥 Промоции и специални оферти  
+• 🪑 Резервация на маса
+• 🚚 Доставка
+• ⏰ Работно време и локация
+• 🍷 Напитки и вина
+
+Или просто кажете какво ви интересува! Готов съм да помогна! 😊`
+        };
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = isUser ? 'user-message' : 'bot-message';
+            messageContent.innerHTML = message;
+            
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            setTimeout(() => {
+                chatMessages.removeChild(typingDiv);
+            }, 1500);
+        }
+
+        function askQuestion(question) {
+            addMessage(question, true);
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                const response = responses[question] || responses['default'];
+                addMessage(response);
+                
+                if (question === 'меню') {
+                    setTimeout(() => {
+                        addMessage(`Харесва ли ви нещо от менюто? Мога да приема поръчка или да резервирам маса! 😊
+                        
+<div class="quick-buttons">
+    <button class="quick-btn" onclick="askQuestion('резервация')">🪑 Резервация</button>
+    <button class="quick-btn" onclick="askQuestion('доставка')">🚚 Поръчка</button>
+    <button class="quick-btn" onclick="askQuestion('промоции')">🔥 Промоции</button>
+</div>`);
+                    }, 1000);
+                } else if (question === 'промоции') {
+                    setTimeout(() => {
+                        addMessage(`Коя от промоциите ви заинтересува? Мога да ви резервирам маса или да приема поръчка! 🎉
+                        
+<div class="quick-buttons">
+    <button class="quick-btn" onclick="askQuestion('резервация')">🪑 Искам маса</button>
+    <button class="quick-btn" onclick="askQuestion('меню')">📋 Пълното меню</button>
+</div>`);
+                    }, 1000);
+                }
+            }, 1500);
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim().toLowerCase();
+            if (message === '') return;
+            
+            addMessage(messageInput.value, true);
+            messageInput.value = '';
+            
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                let response = responses['default'];
+                
+                for (const key in responses) {
+                    if (message.includes(key)) {
+                        response = responses[key];
+                        break;
+                    }
+                }
+                
+                addMessage(response);
+            }, 1500);
+        }
+
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Добавяне на приветствие с delay
+        setTimeout(() => {
+            addMessage('Кухнята ни е отворена и готова за поръчки! 🔥 Днес имаме прясна риба и специални промоции! 🍽️');
+        }, 3000);
+    </script>
+</body>
+</html>

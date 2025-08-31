@@ -1,0 +1,158 @@
+version: "3.1"
+
+stories:
+- story: greet and ask rooms
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_rooms
+  - action: utter_rooms
+
+- story: greet and ask services
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_services
+  - action: utter_services
+
+- story: greet and ask reservation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_reservation
+  - action: utter_reservation
+
+- story: greet and ask promotions
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_promotions
+  - action: utter_promotions
+
+- story: greet and ask location
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_location
+  - action: utter_location
+
+- story: ask rooms directly
+  steps:
+  - intent: ask_rooms
+  - action: utter_rooms
+
+- story: ask services directly
+  steps:
+  - intent: ask_services
+  - action: utter_services
+
+- story: ask reservation directly
+  steps:
+  - intent: ask_reservation
+  - action: utter_reservation
+
+- story: ask promotions directly
+  steps:
+  - intent: ask_promotions
+  - action: utter_promotions
+
+- story: ask location directly
+  steps:
+  - intent: ask_location
+  - action: utter_location
+
+- story: ask contact directly
+  steps:
+  - intent: ask_contact
+  - action: utter_contact
+
+- story: ask prices directly
+  steps:
+  - intent: ask_prices
+  - action: utter_prices
+
+- story: ask parking directly
+  steps:
+  - intent: ask_parking
+  - action: utter_parking
+
+- story: ask breakfast directly
+  steps:
+  - intent: ask_breakfast
+  - action: utter_breakfast
+
+- story: ask pool directly
+  steps:
+  - intent: ask_pool
+  - action: utter_pool
+
+- story: ask spa directly
+  steps:
+  - intent: ask_spa
+  - action: utter_spa
+
+- story: ask wifi directly
+  steps:
+  - intent: ask_wifi
+  - action: utter_wifi
+
+- story: ask pets directly
+  steps:
+  - intent: ask_pets
+  - action: utter_pets
+
+- story: thanks response
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+
+- story: complex reservation inquiry
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_rooms
+  - action: utter_rooms
+  - intent: ask_reservation
+  - action: utter_reservation
+
+- story: services and location inquiry
+  steps:
+  - intent: ask_services
+  - action: utter_services
+  - intent: ask_location
+  - action: utter_location
+
+- story: promotions and contact inquiry
+  steps:
+  - intent: ask_promotions
+  - action: utter_promotions
+  - intent: ask_contact
+  - action: utter_contact
+
+- story: prices and parking inquiry
+  steps:
+  - intent: ask_prices
+  - action: utter_prices
+  - intent: ask_parking
+  - action: utter_parking
+
+- story: breakfast and pool inquiry
+  steps:
+  - intent: ask_breakfast
+  - action: utter_breakfast
+  - intent: ask_pool
+  - action: utter_pool
+
+- story: spa and wifi inquiry
+  steps:
+  - intent: ask_spa
+  - action: utter_spa
+  - intent: ask_wifi
+  - action: utter_wifi
+
+- story: pets and thanks
+  steps:
+  - intent: ask_pets
+  - action: utter_pets
+  - intent: thanks
+  - action: utter_thanks

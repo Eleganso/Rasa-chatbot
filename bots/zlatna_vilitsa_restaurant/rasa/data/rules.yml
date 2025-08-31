@@ -1,0 +1,67 @@
+version: "3.1"
+
+rules:
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say thanks anytime the user says thanks
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+
+- rule: Respond to greet
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Respond to menu request
+  steps:
+  - intent: ask_menu
+  - action: utter_menu
+
+- rule: Respond to promotions request
+  steps:
+  - intent: ask_promotions
+  - action: utter_promotions
+
+- rule: Respond to reservation request
+  steps:
+  - intent: ask_reservation
+  - action: utter_reservation
+
+- rule: Respond to delivery request
+  steps:
+  - intent: ask_delivery
+  - action: utter_delivery
+
+- rule: Respond to working hours request
+  steps:
+  - intent: ask_working_hours
+  - action: utter_working_hours
+
+- rule: Respond to location request
+  steps:
+  - intent: ask_location
+  - action: utter_location
+
+- rule: Respond to contact request
+  steps:
+  - intent: ask_contact
+  - action: utter_contact
+
+- rule: Respond to prices request
+  steps:
+  - intent: ask_prices
+  - action: utter_prices
+
+- rule: Respond to payment request
+  steps:
+  - intent: ask_payment
+  - action: utter_payment
+
+- rule: Respond to vegetarian request
+  steps:
+  - intent: ask_vegetarian
+  - action: utter_vegetarian

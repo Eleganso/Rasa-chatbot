@@ -1,0 +1,158 @@
+version: "3.1"
+
+stories:
+- story: greet and ask working hours
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_working_hours
+  - action: utter_ask_working_hours
+
+- story: greet and ask services
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_services
+  - action: utter_ask_services
+
+- story: greet and ask appointment
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_appointment
+  - action: utter_ask_appointment
+
+- story: greet and ask emergency
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_emergency
+  - action: utter_ask_emergency
+
+- story: greet and ask location
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_location
+  - action: utter_ask_location
+
+- story: greet and ask prices
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_prices
+  - action: utter_ask_prices
+
+- story: greet and ask documents
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_documents
+  - action: utter_ask_documents
+
+- story: greet and ask cardiology
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_cardiology
+  - action: utter_ask_cardiology
+
+- story: greet and ask orthopedics
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_orthopedics
+  - action: utter_ask_orthopedics
+
+- story: greet and ask laboratory
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_laboratory
+  - action: utter_ask_laboratory
+
+- story: greet and ask dentistry
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_dentistry
+  - action: utter_ask_dentistry
+
+- story: greet and ask physiotherapy
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_physiotherapy
+  - action: utter_ask_physiotherapy
+
+- story: direct working hours inquiry
+  steps:
+  - intent: ask_working_hours
+  - action: utter_ask_working_hours
+
+- story: direct services inquiry
+  steps:
+  - intent: ask_services
+  - action: utter_ask_services
+
+- story: direct appointment inquiry
+  steps:
+  - intent: ask_appointment
+  - action: utter_ask_appointment
+
+- story: direct emergency inquiry
+  steps:
+  - intent: ask_emergency
+  - action: utter_ask_emergency
+
+- story: direct location inquiry
+  steps:
+  - intent: ask_location
+  - action: utter_ask_location
+
+- story: direct prices inquiry
+  steps:
+  - intent: ask_prices
+  - action: utter_ask_prices
+
+- story: direct documents inquiry
+  steps:
+  - intent: ask_documents
+  - action: utter_ask_documents
+
+- story: direct cardiology inquiry
+  steps:
+  - intent: ask_cardiology
+  - action: utter_ask_cardiology
+
+- story: direct orthopedics inquiry
+  steps:
+  - intent: ask_orthopedics
+  - action: utter_ask_orthopedics
+
+- story: direct laboratory inquiry
+  steps:
+  - intent: ask_laboratory
+  - action: utter_ask_laboratory
+
+- story: direct dentistry inquiry
+  steps:
+  - intent: ask_dentistry
+  - action: utter_ask_dentistry
+
+- story: direct physiotherapy inquiry
+  steps:
+  - intent: ask_physiotherapy
+  - action: utter_ask_physiotherapy
+
+- story: thanks and goodbye
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: direct goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye

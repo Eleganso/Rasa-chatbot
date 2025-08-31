@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+rasa_env/
+rasa_env_latest/
+rasa_env_new/
+venv/
+env/
+ENV/
+
+# Rasa specific
+models/
+*.tar.gz
+*.model
+
+# Rasa cache and temporary files
+.rasa/
+.keras/
+.config/
+*.tf_model.*
+*.data-00000-of-00001
+
+# Docker
+.dockerignore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Backup directories
+backup_*/
+
+# SSH keys and configs
+ssh_config
+*.pem
+*.key
+
+# Temporary files
+*.tmp
+*.temp
+
+# Credentials (if any)
+credentials.yml
+endpoints.yml
+
+# Deployment specific
+deployment/

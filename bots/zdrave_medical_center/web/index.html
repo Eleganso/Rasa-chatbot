@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медицински център "Здраве+" - Чатбот</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 400px;
+            height: 80vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .medical-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .medical-tagline {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+        }
+
+        .bot-message {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background: #667eea;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 18px;
+            border-bottom-right-radius: 5px;
+            margin-left: auto;
+            max-width: 80%;
+            text-align: right;
+        }
+
+        .quick-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #eee;
+            border-radius: 25px;
+            outline: none;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .message-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Medical specific styling */
+        .medical-icon {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+
+        .emergency {
+            background: #ff6b6b !important;
+        }
+
+        .emergency:hover {
+            background: #ff5252 !important;
+        }
+
+        .appointment {
+            background: #4ecdc4 !important;
+        }
+
+        .appointment:hover {
+            background: #45b7aa !important;
+        }
+
+        .info {
+            background: #45b7d1 !important;
+        }
+
+        .info:hover {
+            background: #3da5c4 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="medical-name">🏥 Медицински център "Здраве+"</div>
+            <div class="medical-tagline">Вашето здраве е наш приоритет</div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message">
+                <div class="bot-message">
+                    Здравейте! 👋 Аз съм д-р Мария, вашият виртуален медицински асистент. Как мога да ви помогна днес?
+                </div>
+                <div class="quick-buttons">
+                    <button class="quick-btn appointment" onclick="askQuestion('часове')">🕐 Работно време</button>
+                    <button class="quick-btn info" onclick="askQuestion('услуги')">🏥 Услуги</button>
+                    <button class="quick-btn appointment" onclick="askQuestion('запазване')">📅 Запазване</button>
+                    <button class="quick-btn emergency" onclick="askQuestion('спешна')">🚨 Спешна помощ</button>
+                    <button class="quick-btn info" onclick="askQuestion('локация')">📍 Локация</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-container">
+                <input type="text" class="message-input" id="messageInput" placeholder="Напишете вашето съобщение...">
+                <button class="send-btn" onclick="sendMessage()">Изпрати</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.querySelector('.send-btn');
+
+        // Hardcoded responses for medical center
+        const medicalResponses = {
+            'часове': '🏥 <strong>Работно време:</strong><br>Понеделник - Петък: 08:00 - 20:00<br>Събота: 09:00 - 16:00<br>Неделя: 10:00 - 14:00<br><br>За спешни случаи: 24/7',
+            'услуги': '🏥 <strong>Нашите медицински услуги:</strong><br><br>• Общопрактикуващ лекар<br>• Кардиология<br>• Ортопедия<br>• Дерматология<br>• Гинекология<br>• Педиатрия<br>• Лабораторни изследвания<br>• УЗИ и рентген<br>• Физиотерапия<br>• Стоматология',
+            'запазване': '📅 <strong>Запазване на час:</strong><br><br>Можете да се запишете на час по следните начини:<br><br>📞 Телефон: 02/123-4567<br>📱 WhatsApp: 0888-123-456<br>🌐 Онлайн: www.zdrave.bg<br>📧 Имейл: info@zdrave.bg<br><br>Работим с всички здравни осигуровки!',
+            'спешна': '🚨 <strong>СПЕШНА МЕДИЦИНСКА ПОМОЩ</strong><br><br>За животозастрашаващи случаи:<br>📞 112 - Национална спешна линия<br>📞 150 - Спешна медицинска помощ<br><br>Нашият център:<br>📞 02/123-4567 (24/7)<br>📍 ул. "Здраве" 15, София<br><br>Пристигаме в рамките на 15 минути!',
+            'локация': '📍 <strong>Локация:</strong><br><br>🏥 Медицински център "Здраве+"<br>ул. "Здраве" 15<br>1000 София, България<br><br>🚇 Метро: "Здраве" (500м)<br>🚌 Автобус: 76, 84, 280<br>🚗 Паркинг: Безплатен<br><br>📞 02/123-4567',
+            'цени': '💰 <strong>Цени на услугите:</strong><br><br>• Консултация с лекар: 50-80 лв.<br>• Специалист: 80-120 лв.<br>• Лабораторни изследвания: от 30 лв.<br>• УЗИ: 60-100 лв.<br>• Рентген: 40-80 лв.<br>• Физиотерапия: 40 лв./сесия<br><br>💳 Приемаме карти и налични',
+            'документи': '📋 <strong>Необходими документи:</strong><br><br>• Лична карта<br>• Здравна книжка<br>• Направление (ако има)<br>• Резултати от предишни изследвания<br>• Списък с лекарства<br><br>За деца:<br>• Раждан акт<br>• Здравна книжка',
+            'кардиология': '❤️ <strong>Кардиологични услуги:</strong><br><br>• ЕКГ<br>• Ехокардиография<br>• Холтер мониторинг<br>• Стрес тест<br>• Консултации<br><br>Д-р Петров - кардиолог с 15 години опит',
+            'ортопедия': '🦴 <strong>Ортопедични услуги:</strong><br><br>• Диагностика на травми<br>• Лечение на болки в гърба<br>• Артроскопия<br>• Протезиране<br>• Рехабилитация<br><br>Д-р Иванова - ортопед',
+            'лаборатория': '🧪 <strong>Лабораторни изследвания:</strong><br><br>• Кръвни изследвания<br>• Урина<br>• Хормонални тестове<br>• Алергични тестове<br>• Онкомаркери<br><br>Резултати в рамките на 24-48 часа',
+            'стоматология': '🦷 <strong>Стоматологични услуги:</strong><br><br>• Профилактика<br>• Лечение на кариес<br>• Протезиране<br>• Импланти<br>• Изправяне на зъби<br><br>Д-р Георгиев - стоматолог',
+            'физиотерапия': '💆 <strong>Физиотерапевтични услуги:</strong><br><br>• Масаж<br>• Електротерапия<br>• Ултразвук<br>• Лазерна терапия<br>• Кинезитерапия<br><br>Индивидуални програми за лечение'
+        };
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = isUser ? 'user-message' : 'bot-message';
+            messageContent.innerHTML = message;
+            
+            messageDiv.appendChild(messageContent);
+            
+            if (!isUser) {
+                // Add quick buttons for bot messages
+                const quickButtons = document.createElement('div');
+                quickButtons.className = 'quick-buttons';
+                
+                const buttons = [
+                    { text: '🕐 Часове', action: 'часове' },
+                    { text: '🏥 Услуги', action: 'услуги' },
+                    { text: '📅 Запазване', action: 'запазване' },
+                    { text: '💰 Цени', action: 'цени' },
+                    { text: '📍 Локация', action: 'локация' }
+                ];
+                
+                buttons.forEach(btn => {
+                    const button = document.createElement('button');
+                    button.className = 'quick-btn';
+                    button.textContent = btn.text;
+                    button.onclick = () => askQuestion(btn.action);
+                    quickButtons.appendChild(button);
+                });
+                
+                messageDiv.appendChild(quickButtons);
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function askQuestion(question) {
+            const response = medicalResponses[question];
+            if (response) {
+                addMessage(question, true);
+                setTimeout(() => {
+                    addMessage(response);
+                }, 500);
+            }
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                messageInput.value = '';
+                
+                // Simulate bot response
+                setTimeout(() => {
+                    let response = 'Благодаря за вашето съобщение! За по-специфична информация, моля използвайте бутоните по-долу или се обадете на 02/123-4567.';
+                    
+                    // Check for keywords in the message
+                    const lowerMessage = message.toLowerCase();
+                    if (lowerMessage.includes('час') || lowerMessage.includes('запазване')) {
+                        response = medicalResponses['запазване'];
+                    } else if (lowerMessage.includes('услуг') || lowerMessage.includes('лечени')) {
+                        response = medicalResponses['услуги'];
+                    } else if (lowerMessage.includes('час') || lowerMessage.includes('работн')) {
+                        response = medicalResponses['часове'];
+                    } else if (lowerMessage.includes('спешн') || lowerMessage.includes('неотложн')) {
+                        response = medicalResponses['спешна'];
+                    } else if (lowerMessage.includes('локац') || lowerMessage.includes('къде') || lowerMessage.includes('адрес')) {
+                        response = medicalResponses['локация'];
+                    } else if (lowerMessage.includes('цен') || lowerMessage.includes('колко')) {
+                        response = medicalResponses['цени'];
+                    } else if (lowerMessage.includes('документ')) {
+                        response = medicalResponses['документи'];
+                    } else if (lowerMessage.includes('кардио') || lowerMessage.includes('сърце')) {
+                        response = medicalResponses['кардиология'];
+                    } else if (lowerMessage.includes('ортопед') || lowerMessage.includes('гръб') || lowerMessage.includes('став')) {
+                        response = medicalResponses['ортопедия'];
+                    } else if (lowerMessage.includes('лаборатор') || lowerMessage.includes('кръв')) {
+                        response = medicalResponses['лаборатория'];
+                    } else if (lowerMessage.includes('стоматолог') || lowerMessage.includes('зъб')) {
+                        response = medicalResponses['стоматология'];
+                    } else if (lowerMessage.includes('физио') || lowerMessage.includes('масаж')) {
+                        response = medicalResponses['физиотерапия'];
+                    }
+                    
+                    addMessage(response);
+                }, 1000);
+            }
+        }
+
+        // Enter key to send message
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Auto-scroll to bottom when window is focused (fixes the scroll issue)
+        window.addEventListener('focus', function() {
+            if (chatMessages.children.length > 1) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+        
+        // Also scroll to bottom when page becomes visible
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && chatMessages.children.length > 1) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

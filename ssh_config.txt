@@ -1,0 +1,19 @@
+SSH Connection Details:
+======================
+
+Server: 162.220.165.234
+Username: root
+Password: Sif5-R5=Kyk0_Fi9-Lob8Pu1
+
+Connection Command:
+ssh root@162.220.165.234
+
+Notes:
+- Ubuntu 24.04.1 LTS server
+- System load: 0.02
+- Disk usage: 30.3% of 23.93GB
+- Memory usage: 57%
+- 138 updates available
+- System restart required
+
+Security Note: Store this file securely and do not share it publicly.

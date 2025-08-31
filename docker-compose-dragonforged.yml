@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  dragonforged-bot:
+    image: rasa/rasa:3.6.21
+    container_name: dragonforged-bot
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./rasa:/app
+    command: run --enable-api --cors "*" --port 5005 --model models/20250828-185711-shy-protagonist.tar.gz
+    restart: unless-stopped
+    environment:
+      - RASA_TOKEN=${RASA_TOKEN:-}
+    networks:
+      - dragonforged-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: dragonforged-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./web:/usr/share/nginx/html
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - dragonforged-bot
+    restart: unless-stopped
+    networks:
+      - dragonforged-network
+
+networks:
+  dragonforged-network:
+    driver: bridge

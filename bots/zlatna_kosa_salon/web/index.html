@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Салон "Златна коса" - Чатбот</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .chat-header::before {
+            content: '💇‍♀️';
+            position: absolute;
+            left: 20px;
+            font-size: 24px;
+        }
+
+        .chat-header::after {
+            content: '✨';
+            position: absolute;
+            right: 20px;
+            font-size: 24px;
+        }
+
+        .salon-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .salon-tagline {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 18px 18px 18px 5px;
+            max-width: 80%;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            background: #e3f2fd;
+            color: #333;
+            padding: 12px 16px;
+            border-radius: 18px 18px 5px 18px;
+            max-width: 80%;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .quick-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-btn {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 8px 0;
+            border-left: 4px solid #ff6b6b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .service-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .service-price {
+            color: #ff6b6b;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .promotion-badge {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #666;
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 20px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .message-input:focus {
+            border-color: #667eea;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="salon-name">Салон "Златна коса"</div>
+            <div class="salon-tagline">Вашата красота е нашият приоритет</div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message">
+                <div class="bot-message">
+                    Здравейте! 😊 Добре дошли в салон "Златна коса"! Аз съм Ева, вашият виртуален асистент. Как мога да ви помогна днес?
+                </div>
+                <div class="quick-buttons">
+                    <button class="quick-btn" onclick="askQuestion('услуги')">🌟 Услуги</button>
+                    <button class="quick-btn" onclick="askQuestion('цени')">💰 Цени</button>
+                    <button class="quick-btn" onclick="askQuestion('промоции')">🎁 Промоции</button>
+                    <button class="quick-btn" onclick="askQuestion('работно време')">⏰ Работно време</button>
+                    <button class="quick-btn" onclick="askQuestion('записване')">📅 Записване</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-container">
+                <input type="text" class="message-input" id="messageInput" placeholder="Напишете вашето съобщение...">
+                <button class="send-btn" onclick="sendMessage()">Изпрати</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+
+        const responses = {
+            'услуги': `Предлагаме широка гама от услуги:
+
+<div class="service-card">
+    <div class="service-title">💇‍♀️ Подстригване и оформяне</div>
+    <div>Професионално подстригване с персонализиран подход</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">🎨 Боядисване</div>
+    <div>Балеяж, омбре, тонирани, класическо боядисване</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">💆‍♀️ Грижи за лице</div>
+    <div>Почиствания, маски, антиейдж процедури</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">💅 Маникюр и педикюр</div>
+    <div>Класически и гел лак, френски маникюр</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">👁️ Грижи за вежди и мигли</div>
+    <div>Оформяне, ламиниране, удължаване на мигли</div>
+</div>`,
+
+            'цени': `💰 **АКТУАЛНИ ЦЕНИ** 💰
+
+<div class="service-card">
+    <div class="service-title">Подстригване</div>
+    <div class="service-price">25-45 лв</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">Боядисване (кратка коса)</div>
+    <div class="service-price">60-90 лв</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">Боядисване (дълга коса)</div>
+    <div class="service-price">80-120 лв</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">Балеяж/Омбре</div>
+    <div class="service-price">120-180 лв</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">Почистване на лице</div>
+    <div class="service-price">50-70 лв</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">Маникюр (гел лак)</div>
+    <div class="service-price">25 лв</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">Педикюр (гел лак)</div>
+    <div class="service-price">35 лв</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">Оформяне на вежди</div>
+    <div class="service-price">15 лв</div>
+</div>
+
+*Цените са ориентировъчни и могат да варират според сложността*`,
+
+            'промоции': `🎁 **ТЕКУЩИ ПРОМОЦИИ** 🎁
+
+<div class="service-card">
+    <div class="service-title">🌟 Комплект за невести
+        <span class="promotion-badge">-20%</span>
+    </div>
+    <div>Подстригване + боядисване + прическа + маникюр</div>
+    <div class="service-price">200 лв (вместо 250 лв)</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">💅 Маникюр + Педикюр
+        <span class="promotion-badge">ПРОМО</span>
+    </div>
+    <div>И двете услуги заедно</div>
+    <div class="service-price">50 лв (вместо 60 лв)</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">👑 VIP пакет "Пълно преображение"
+        <span class="promotion-badge">ХИТ</span>
+    </div>
+    <div>Подстригване + боядисване + почистване + маникюр</div>
+    <div class="service-price">140 лв (вместо 170 лв)</div>
+</div>
+
+<div class="service-card">
+    <div class="service-title">🎂 Специално за рожден ден
+        <span class="promotion-badge">-15%</span>
+    </div>
+    <div>При показване на лична карта в деня на рождения ден</div>
+    <div class="service-price">15% отстъпка от всички услуги</div>
+</div>
+
+*Промоциите са валидни до края на месеца*`,
+
+            'работно време': `⏰ **РАБОТНО ВРЕМЕ** ⏰
+
+**Понеделник - Петък:** 9:00 - 19:00
+**Събота:** 9:00 - 17:00  
+**Неделя:** 10:00 - 16:00
+
+📍 **Адрес:** ул. "Витоша" 25, София
+📞 **Телефон:** 02/987-65-43
+📱 **WhatsApp:** 0888 123 456
+
+🚗 **Паркинг:** Безплатен за клиенти в задния двор
+🚇 **Метро:** Станция "Сердика" (5 мин пеша)
+
+💡 *Препоръчваме да се обадите предварително за записване!*`,
+
+            'записване': `📅 **ЗАПИСВАНЕ НА ЧАС** 📅
+
+**Можете да се запишете по следните начини:**
+
+📞 **Телефон:** 02/987-65-43
+📱 **WhatsApp:** 0888 123 456  
+📧 **Имейл:** info@zlatnakosa.bg
+
+**Или директно тук в чата! 😊**
+
+🕐 **Свободни часове за днес:**
+• 14:30 - маникюр
+• 16:00 - подстригване  
+• 17:30 - почистване на лице
+
+🗓️ **Утре имаме свободни часове:**
+• 10:00, 12:30, 15:00, 16:30
+
+**Кажете ми каква услуга търсите и в кое време ви е удобно! 💕**
+
+*За сложни процедури като боядисване, моля резервирайте поне 1 ден предварително.*`,
+
+            'здравейте': 'Здравейте! 😊 Радвам се да ви видя отново! Как мога да ви помогна днес?',
+            'благодаря': 'Няма защо! 💕 Винаги е удоволствие да помагам! Има ли още нещо, с което мога да съм полезна?',
+            'довиждане': 'Довиждане! 👋 Чакаме ви скоро в салон "Златна коса"! Ще се радваме да ви видим! 💕',
+            'локация': 'Намираме се на ул. "Витоша" 25, София, точно до метростанция "Сердика". Има безплатен паркинг за клиенти! 📍',
+            'телефон': 'Можете да се свържете с нас на: 📞 02/987-65-43 или 📱 WhatsApp: 0888 123 456',
+
+            'default': `Съжалявам, не разбрах точно въпроса ви. 😅 
+
+Можете да попитате за:
+• 🌟 Услуги и цени  
+• 🎁 Промоции и пакети
+• ⏰ Работно време  
+• 📅 Записване на час
+• 📍 Локация и контакти
+
+Или просто напишете какво ви интересува! 💕`
+        };
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = isUser ? 'user-message' : 'bot-message';
+            messageContent.innerHTML = message;
+            
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            setTimeout(() => {
+                chatMessages.removeChild(typingDiv);
+            }, 1500);
+        }
+
+        function askQuestion(question) {
+            addMessage(question, true);
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                const response = responses[question] || responses['default'];
+                addMessage(response);
+                
+                if (question === 'услуги' || question === 'цени') {
+                    setTimeout(() => {
+                        addMessage(`Харесва ли ви някоя от услугите? Мога да ви запиша час! 😊
+                        
+<div class="quick-buttons">
+    <button class="quick-btn" onclick="askQuestion('записване')">📅 Искам час</button>
+    <button class="quick-btn" onclick="askQuestion('промоции')">🎁 Има ли промоции?</button>
+</div>`);
+                    }, 1000);
+                }
+            }, 1500);
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim().toLowerCase();
+            if (message === '') return;
+            
+            addMessage(messageInput.value, true);
+            messageInput.value = '';
+            
+            showTypingIndicator();
+            
+            setTimeout(() => {
+                let response = responses['default'];
+                
+                for (const key in responses) {
+                    if (message.includes(key)) {
+                        response = responses[key];
+                        break;
+                    }
+                }
+                
+                addMessage(response);
+            }, 1500);
+        }
+
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Добавяне на приветствие с delay за по-натурален ефект
+        setTimeout(() => {
+            addMessage('Между другото, днес имаме специални промоции! 🎁 Ще се радвам да ви разкажа за тях! ✨');
+        }, 3000);
+    </script>
+</body>
+</html>

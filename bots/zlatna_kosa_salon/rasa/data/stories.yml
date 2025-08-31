@@ -1,0 +1,49 @@
+version: "3.1"
+
+stories:
+- story: greet and ask services
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_services
+  - action: utter_services
+
+- story: ask pricing
+  steps:
+  - intent: ask_pricing
+  - action: utter_pricing
+
+- story: ask promotions
+  steps:
+  - intent: ask_promotions
+  - action: utter_promotions
+
+- story: ask working hours
+  steps:
+  - intent: ask_working_hours
+  - action: utter_working_hours
+
+- story: ask booking
+  steps:
+  - intent: ask_booking
+  - action: utter_booking
+
+- story: ask location
+  steps:
+  - intent: ask_location
+  - action: utter_location
+
+- story: ask contact
+  steps:
+  - intent: ask_contact
+  - action: utter_contact
+
+- story: thanks
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+
+- story: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye

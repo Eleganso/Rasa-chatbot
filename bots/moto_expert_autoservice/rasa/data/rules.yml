@@ -1,0 +1,62 @@
+version: "3.1"
+
+rules:
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say thanks anytime the user says thanks
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+
+- rule: Respond to working hours questions
+  steps:
+  - intent: ask_working_hours
+  - action: utter_ask_working_hours
+
+- rule: Respond to services questions
+  steps:
+  - intent: ask_services
+  - action: utter_ask_services
+
+- rule: Respond to appointment questions
+  steps:
+  - intent: ask_appointment
+  - action: utter_ask_appointment
+
+- rule: Respond to emergency questions
+  steps:
+  - intent: ask_emergency
+  - action: utter_ask_emergency
+
+- rule: Respond to location questions
+  steps:
+  - intent: ask_location
+  - action: utter_ask_location
+
+- rule: Respond to prices questions
+  steps:
+  - intent: ask_prices
+  - action: utter_ask_prices
+
+- rule: Respond to guarantee questions
+  steps:
+  - intent: ask_guarantee
+  - action: utter_ask_guarantee
+
+- rule: Respond to parts questions
+  steps:
+  - intent: ask_parts
+  - action: utter_ask_parts
+
+- rule: Respond to diagnostic questions
+  steps:
+  - intent: ask_diagnostic
+  - action: utter_ask_diagnostic
+
+- rule: Respond to roadside questions
+  steps:
+  - intent: ask_roadside
+  - action: utter_ask_roadside

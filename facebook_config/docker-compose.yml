@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  rasa:
+    image: rasa/rasa:3.6.21
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./rasa:/app
+    environment:
+      - FACEBOOK_ACCESS_TOKEN=${FACEBOOK_ACCESS_TOKEN}
+      - FACEBOOK_VERIFY_TOKEN=${FACEBOOK_VERIFY_TOKEN}
+      - FACEBOOK_SECRET=${FACEBOOK_SECRET}
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+
+  actions:
+    image: rasa/rasa-sdk:3.6.2
+    ports:
+      - "5055:5055"
+    volumes:
+      - ./rasa/actions:/app/actions
+    command: run --enable-api --cors "*" --port 5055
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    depends_on:
+      - rasa
+    restart: unless-stopped

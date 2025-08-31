@@ -1,0 +1,202 @@
+version: '3.1'
+nlu:
+- intent: greet
+  examples: "- hey\n- hello\n- hi\n- hello there\n- good morning\n- good evening\n\
+  - moin\n- hey there\n- let's go\n- hey dude\n- goodmorning\n- goodevening\n- good\
+    \ afternoon\n  - здрасти\n  - здравей\n  - привет\n  - добър ден\n   \
+    \ - добро утро\n  - добър вечер\n  - здраве\n  - здравеи\n  - здрастики\n\
+    \  - здравейте\n  - привети\n  - чао\n  - хей\n  - хело\n  - хай\n\
+    \  - ало\n  - алоо\n  - алоу"
+- intent: goodbye
+  examples: "- cu\n- good by\n- cee you later\n- good night\n- bye\n- goodbye\n- have\
+    \ a nice day\n- see you around\n- bye bye\n- see you later\n  - довиждане\n\
+    \  - чао\n  - довиждане\n  - приятен ден\n  - лека вечер\n  - лека нощ\n\
+    \  - до скоро\n  - до следващо\n  - до утре\n  - до видене\n  - приятно\n\
+    \  - успех\n  - мерси\n  - благодаря\n  - мерси много"
+- intent: affirm
+  examples: '- yes
+
+  - y
+
+  - indeed
+
+  - of course
+
+  - that sounds good
+
+  - correct
+
+    '
+- intent: deny
+  examples: '- no
+
+  - n
+
+  - never
+
+  - I don''t think so
+
+  - don''t like that
+
+  - no way
+
+  - not really
+
+    '
+- intent: mood_great
+  examples: '- perfect
+
+  - great
+
+  - amazing
+
+  - feeling like a king
+
+  - wonderful
+
+  - I am feeling very good
+
+  - I am great
+
+  - I am amazing
+
+  - I am going to save the world
+
+  - super stoked
+
+  - extremely good
+
+  - so so perfect
+
+  - so good
+
+  - so perfect
+
+    '
+- intent: mood_unhappy
+  examples: '- my day was horrible
+
+  - I am sad
+
+  - I don''t feel very well
+
+  - I am disappointed
+
+  - super sad
+
+  - I''m so sad
+
+  - I''m sad
+
+  - I am sad
+
+  - I am unhappy
+
+  - I have not felt like this
+
+  - my day was horrible
+
+  - I am feeling very bad
+
+  - I am very bad
+
+  - I am extremely bad
+
+  - really sad
+
+  - so sad
+
+    '
+- intent: bot_challenge
+  examples: '- are you a bot?
+
+  - are you a human?
+
+  - am I talking to a bot?
+
+  - am I talking to a human?
+
+    '
+- intent: weather
+  examples: "- what's the weather like\n- how's the weather\n- weather forecast\n\
+  - is it raining\n- temperature today\n- weather today\n- what's the temperature\n\
+  - is it sunny\n- weather report\n- климатични условия\n- какво е времето\n- времето\
+    \ днес\n- ще вали ли\n- температурата\n  - какво е времето\n  - времето какво\
+    \ е\n  - ще вали ли\n  - ще е слънчево ли\n  - температурата каква е\n \
+    \   - градусите колко са\n  - времето днес\n  - времето утре\n  - климатични\
+    \ условия\n  - метео\n  - прогноза за времето\n  - времето в София\n   \
+    \ - времето в България\n  - ще е студено ли\n  - ще е топло ли"
+- intent: help
+  examples: "- help\n- I need help\n- can you help me\n- what can you do\n- how can\
+    \ you help\n- assistance\n- support\n- помощ\n- нужна ми е помощ\n- можеш ли да\
+    \ ми помогнеш\n- какво можеш да правиш\n  - помощ\n  - нужна ми е помощ\n\
+    \  - можеш ли да ми помогнеш\n  - какво можеш да правиш\n  - какво умееш\n\
+    \  - какво знаеш\n  - какво можеш\n  - какво си способен\n  - какви са\
+    \ възможностите ти\n  - какви са функциите ти\n  - какво правиш\n  - какво\
+    \ си\n  - какво си ти\n  - какво си за бот\n  - какво си за асистент"
+- intent: thanks
+  examples: "- thanks\n- thank you\n- thanks a lot\n- thank you very much\n- thanks\
+    \ so much\n- благодаря\n- мерси\n- благодаря ти\n- много благодаря\n  - благодаря\n\
+    \  - мерси\n  - благодаря ти\n  - много благодаря\n  - мерси много\n \
+    \   - благодаря много\n  - благодаря ти много\n  - мерси ти\n  - благодаря\
+    \ ти много\n  - много мерси\n  - благодаря ти много\n  - мерси ти много\n\
+    \  - благодаря ти много\n  - мерси ти много\n  - благодаря ти много"
+- intent: joke
+  examples: "- tell me a joke\n- say something funny\n- make me laugh\n- joke\n- funny\
+    \ story\n- разкажи ми виц\n- кажи нещо забавно\n- разсмеши ме\n- виц\n  - разкажи\
+    \ ми виц\n  - кажи виц\n  - разкажи виц\n  - кажи нещо забавно\n  - разсмеши\
+    \ ме\n  - забавлявай ме\n  - кажи нещо смешно\n  - разкажи нещо забавно\n\
+    \  - виц\n  - вицче\n  - шега\n  - шегичка\n  - забавна история\n  \
+    \  - смешна история\n  - анекдот"
+- intent: time
+  examples: '- what time is it
+
+  - current time
+
+  - time now
+
+  - what''s the time
+
+  - колко е часът
+
+  - текущо време
+
+  - сегашно време
+
+  - часът
+
+    '
+- intent: name
+  examples: '- what''s your name
+
+  - what should I call you
+
+  - who are you
+
+  - your name
+
+  - как се казваш
+
+  - какво е твоето име
+
+  - кой си ти
+
+  - твоето име
+
+    '
+- intent: capabilities
+  examples: '- what can you do
+
+  - your capabilities
+
+  - what are your features
+
+  - what do you do
+
+  - какво можеш да правиш
+
+  - твоите възможности
+
+  - какви са функциите ти
+
+  - какво правиш'

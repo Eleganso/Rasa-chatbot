@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Multi-Bot Demo Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        
+        .bots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .bot-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        
+        .bot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .bot-icon {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .bot-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .bot-description {
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .bot-port {
+            background: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .bot-button {
+            width: 100%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .bot-button:hover {
+            background: #0056b3;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Multi-Bot Demo</h1>
+        <p>Демонстрация на 5 различни чатбота за различни бизнес нужди</p>
+    </div>
+    
+    <div class="bots-grid">
+        <div class="bot-card" onclick="openBot('tourism_bot')">
+            <div class="bot-icon">🏛️</div>
+            <div class="bot-name">TourismBot</div>
+            <div class="bot-description">Туристически съвети за България - забележителности, хотели, транспорт</div>
+            <div class="bot-port">Порт: 5001</div>
+            <button class="bot-button">Отвори TourismBot</button>
+        </div>
+        
+        <div class="bot-card" onclick="openBot('tech_support_bot')">
+            <div class="bot-icon">🔧</div>
+            <div class="bot-name">TechSupportBot</div>
+            <div class="bot-description">Техническа поддръжка - инсталация, проблеми, функции</div>
+            <div class="bot-port">Порт: 5002</div>
+            <button class="bot-button">Отвори TechSupportBot</button>
+        </div>
+        
+        <div class="bot-card" onclick="openBot('sales_bot')">
+            <div class="bot-icon">💰</div>
+            <div class="bot-name">SalesBot</div>
+            <div class="bot-description">Продажби и консултации - продукти, цени, демо</div>
+            <div class="bot-port">Порт: 5003</div>
+            <button class="bot-button">Отвори SalesBot</button>
+        </div>
+        
+        <div class="bot-card" onclick="openBot('hr_bot')">
+            <div class="bot-icon">👥</div>
+            <div class="bot-name">HRBot</div>
+            <div class="bot-description">HR помощник - позиции, бенефити, кандидатиране</div>
+            <div class="bot-port">Порт: 5004</div>
+            <button class="bot-button">Отвори HRBot</button>
+        </div>
+        
+        <div class="bot-card" onclick="openBot('customer_service_bot')">
+            <div class="bot-icon">🎧</div>
+            <div class="bot-name">CustomerServiceBot</div>
+            <div class="bot-description">Клиентски сервиз - поръчки, рекламации, помощ</div>
+            <div class="bot-port">Порт: 5005</div>
+            <button class="bot-button">Отвори CustomerServiceBot</button>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>© 2025 Multi-Bot Demo - Демонстрация на Rasa чатботове</p>
+    </div>
+
+    <script>
+        function openBot(botName) {
+            const botUrls = {
+                'tourism_bot': 'bots/tourism_bot/web/index.html',
+                'tech_support_bot': 'bots/tech_support_bot/web/index.html',
+                'sales_bot': 'bots/sales_bot/web/index.html',
+                'hr_bot': 'bots/hr_bot/web/index.html',
+                'customer_service_bot': 'bots/customer_service_bot/web/index.html'
+            };
+            
+            window.open(botUrls[botName], '_blank');
+        }
+    </script>
+</body>
+</html>

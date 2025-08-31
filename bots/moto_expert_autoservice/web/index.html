@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автосервиз "Мото Експерт" - Чатбот</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 400px;
+            height: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .autoservice-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .autoservice-tagline {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 20px;
+        }
+
+        .bot-message {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            border-radius: 18px 18px 18px 5px;
+            max-width: 80%;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            border-radius: 18px 18px 5px 18px;
+            max-width: 80%;
+            margin-left: auto;
+            word-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .quick-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .quick-btn {
+            background: #ecf0f1;
+            border: 2px solid #3498db;
+            color: #2c3e50;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .quick-btn:hover {
+            background: #3498db;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .quick-btn.service {
+            border-color: #e74c3c;
+        }
+
+        .quick-btn.service:hover {
+            background: #e74c3c;
+        }
+
+        .quick-btn.appointment {
+            border-color: #f39c12;
+        }
+
+        .quick-btn.appointment:hover {
+            background: #f39c12;
+        }
+
+        .quick-btn.info {
+            border-color: #27ae60;
+        }
+
+        .quick-btn.info:hover {
+            background: #27ae60;
+        }
+
+        .quick-btn.emergency {
+            border-color: #e74c3c;
+            background: #e74c3c;
+            color: white;
+        }
+
+        .quick-btn.emergency:hover {
+            background: #c0392b;
+        }
+
+        .chat-input {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .message-input:focus {
+            border-color: #3498db;
+        }
+
+        .send-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #2980b9;
+        }
+
+        .send-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        /* Scrollbar styling */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Responsive design */
+        @media (max-width: 480px) {
+            .chat-container {
+                height: 100vh;
+                max-width: 100%;
+                border-radius: 0;
+            }
+            
+            .quick-buttons {
+                gap: 6px;
+            }
+            
+            .quick-btn {
+                font-size: 11px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="autoservice-name">🔧 Автосервиз "Мото Експерт"</div>
+            <div class="autoservice-tagline">Вашият надежден партньор за автомобилни услуги</div>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message">
+                <div class="bot-message">
+                    Здравейте! 👋 Аз съм вашият виртуален автосервиз асистент. Как мога да ви помогна с вашия автомобил днес?
+                </div>
+                <div class="quick-buttons">
+                    <button class="quick-btn service" onclick="askQuestion('услуги')">🔧 Услуги</button>
+                    <button class="quick-btn appointment" onclick="askQuestion('часове')">🕐 Работно време</button>
+                    <button class="quick-btn appointment" onclick="askQuestion('запазване')">📅 Запазване</button>
+                    <button class="quick-btn emergency" onclick="askQuestion('спешна')">🚨 Спешна помощ</button>
+                    <button class="quick-btn info" onclick="askQuestion('локация')">📍 Локация</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input">
+            <div class="input-container">
+                <input type="text" class="message-input" id="messageInput" placeholder="Напишете вашето съобщение...">
+                <button class="send-btn" onclick="sendMessage()">Изпрати</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.querySelector('.send-btn');
+
+        // Hardcoded responses for immediate functionality
+        const responses = {
+            'услуги': '🔧 <strong>Нашите услуги:</strong><br>• Диагностика и ремонт на двигатели<br>• Спирачна система<br>• Окачване и управление<br>• Електрическа система<br>• Климатична инсталация<br>• Маслени услуги и филтри<br>• Гуми и балансиране<br>• Автоелектрика',
+            'часове': '🕐 <strong>Работно време:</strong><br>Понеделник - Петък: 08:00 - 18:00<br>Събота: 09:00 - 15:00<br>Неделя: Запазено време<br><br>За спешни случаи: 24/7',
+            'запазване': '📅 <strong>Запазване на час:</strong><br>Можете да се свържете с нас на:<br>📞 Телефон: 0888 123 456<br>📱 WhatsApp: 0888 123 456<br>📧 Email: info@motoexpert.bg<br><br>Или използвайте нашата онлайн система за резервации.',
+            'спешна': '🚨 <strong>Спешна помощ:</strong><br>За спешни случаи и пътна помощ:<br>📞 Телефон: 0888 123 456<br>🚗 Пътна помощ: 24/7<br>📍 Пристигаме на място<br><br>Нашите специалисти са на разположение за спешни ремонти.',
+            'локация': '📍 <strong>Локация:</strong><br>🏢 ул. "Автомобилна" 15<br>🏙️ София 1000<br><br>🚗 <strong>Как да стигнете:</strong><br>• С метро: спирка "Автосервиз"<br>• С автобус: линии 45, 67<br>• С кола: паркинг на място',
+            'цени': '💰 <strong>Нашите цени:</strong><br>• Диагностика: от 50 лв.<br>• Маслени услуги: от 80 лв.<br>• Спирачни накладки: от 120 лв.<br>• Гуми и балансиране: от 60 лв.<br>• Електрическа диагностика: от 40 лв.<br><br>За точни цени се свържете с нас.',
+            'гаранция': '✅ <strong>Гаранция:</strong><br>• Всички ремонти с гаранция<br>• Оригинални части<br>• Сертифицирани майстори<br>• Писмена гаранция<br>• Последващо обслужване',
+            'части': '🔧 <strong>Авточасти:</strong><br>• Оригинални части<br>• Качествени алтернативи<br>• Бърза доставка<br>• Гаранция за части<br>• Консултации за избор',
+            'диагностика': '🔍 <strong>Диагностика:</strong><br>• Компютърна диагностика<br>• Проверка на двигателя<br>• Тест на спирачната система<br>• Проверка на електрическата система<br>• Диагностика на климатика',
+            'пътна': '🚗 <strong>Пътна помощ:</strong><br>• 24/7 пътна помощ<br>• Пристигане на място<br>• Бързо диагностициране<br>• Временни поправки<br>• Буксиране до сервиза'
+        };
+
+        function addMessage(message, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            
+            const messageElement = document.createElement('div');
+            messageElement.className = isUser ? 'user-message' : 'bot-message';
+            messageElement.innerHTML = message;
+            
+            messageDiv.appendChild(messageElement);
+            
+            if (!isUser) {
+                // Add quick buttons for bot messages
+                const quickButtons = document.createElement('div');
+                quickButtons.className = 'quick-buttons';
+                
+                const buttonLabels = [
+                    { text: '🔧 Услуги', action: 'услуги', class: 'service' },
+                    { text: '🕐 Часове', action: 'часове', class: 'appointment' },
+                    { text: '📅 Запазване', action: 'запазване', class: 'appointment' },
+                    { text: '🚨 Спешна', action: 'спешна', class: 'emergency' },
+                    { text: '📍 Локация', action: 'локация', class: 'info' }
+                ];
+                
+                buttonLabels.forEach(btn => {
+                    const button = document.createElement('button');
+                    button.className = `quick-btn ${btn.class}`;
+                    button.textContent = btn.text;
+                    button.onclick = () => askQuestion(btn.action);
+                    quickButtons.appendChild(button);
+                });
+                
+                messageDiv.appendChild(quickButtons);
+            }
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function askQuestion(question) {
+            const response = responses[question] || 'Извинявам се, но не разбирам вашия въпрос. Моля, опитайте отново или се свържете с нас директно.';
+            addMessage(response);
+        }
+
+        function sendMessage() {
+            const message = messageInput.value.trim();
+            if (message === '') return;
+            
+            addMessage(message, true);
+            messageInput.value = '';
+            
+            // Simulate bot response
+            setTimeout(() => {
+                const lowerMessage = message.toLowerCase();
+                let response = '';
+                
+                if (lowerMessage.includes('услуг') || lowerMessage.includes('ремонт')) {
+                    response = responses['услуги'];
+                } else if (lowerMessage.includes('час') || lowerMessage.includes('работн')) {
+                    response = responses['часове'];
+                } else if (lowerMessage.includes('запаз') || lowerMessage.includes('резерв')) {
+                    response = responses['запазване'];
+                } else if (lowerMessage.includes('спешн') || lowerMessage.includes('авари')) {
+                    response = responses['спешна'];
+                } else if (lowerMessage.includes('локац') || lowerMessage.includes('адрес')) {
+                    response = responses['локация'];
+                } else if (lowerMessage.includes('цен') || lowerMessage.includes('колко')) {
+                    response = responses['цени'];
+                } else if (lowerMessage.includes('гаранц')) {
+                    response = responses['гаранция'];
+                } else if (lowerMessage.includes('част')) {
+                    response = responses['части'];
+                } else if (lowerMessage.includes('диагност')) {
+                    response = responses['диагностика'];
+                } else if (lowerMessage.includes('пътн') || lowerMessage.includes('помощ')) {
+                    response = responses['пътна'];
+                } else {
+                    response = 'Благодаря за вашето съобщение! За по-подробна информация моля използвайте бутоните по-долу или се свържете с нас директно на 0888 123 456.';
+                }
+                
+                addMessage(response);
+            }, 1000);
+        }
+
+        // Enter key to send message
+        messageInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Auto-scroll to bottom when window is focused (fixes the scroll issue)
+        window.addEventListener('focus', function() {
+            if (chatMessages.children.length > 1) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+        
+        // Also scroll to bottom when page becomes visible
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && chatMessages.children.length > 1) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+version: "3.1"
+
+stories:
+- story: greet and ask services
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- story: ask working hours
+  steps:
+  - intent: ask_working_hours
+  - action: utter_ask_working_hours
+
+- story: ask services
+  steps:
+  - intent: ask_services
+  - action: utter_ask_services
+
+- story: ask appointment
+  steps:
+  - intent: ask_appointment
+  - action: utter_ask_appointment
+
+- story: ask emergency
+  steps:
+  - intent: ask_emergency
+  - action: utter_ask_emergency
+
+- story: ask location
+  steps:
+  - intent: ask_location
+  - action: utter_ask_location
+
+- story: ask prices
+  steps:
+  - intent: ask_prices
+  - action: utter_ask_prices
+
+- story: ask guarantee
+  steps:
+  - intent: ask_guarantee
+  - action: utter_ask_guarantee
+
+- story: ask parts
+  steps:
+  - intent: ask_parts
+  - action: utter_ask_parts
+
+- story: ask diagnostic
+  steps:
+  - intent: ask_diagnostic
+  - action: utter_ask_diagnostic
+
+- story: ask roadside
+  steps:
+  - intent: ask_roadside
+  - action: utter_ask_roadside
+
+- story: thanks
+  steps:
+  - intent: thanks
+  - action: utter_thanks
+
+- story: goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- story: greet and ask working hours
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_working_hours
+  - action: utter_ask_working_hours
+
+- story: greet and ask services
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_services
+  - action: utter_ask_services
+
+- story: ask services and appointment
+  steps:
+  - intent: ask_services
+  - action: utter_ask_services
+  - intent: ask_appointment
+  - action: utter_ask_appointment
+
+- story: ask location and working hours
+  steps:
+  - intent: ask_location
+  - action: utter_ask_location
+  - intent: ask_working_hours
+  - action: utter_ask_working_hours
+
+- story: ask prices and guarantee
+  steps:
+  - intent: ask_prices
+  - action: utter_ask_prices
+  - intent: ask_guarantee
+  - action: utter_ask_guarantee
+
+- story: ask emergency and roadside
+  steps:
+  - intent: ask_emergency
+  - action: utter_ask_emergency
+  - intent: ask_roadside
+  - action: utter_ask_roadside
+
+- story: ask diagnostic and parts
+  steps:
+  - intent: ask_diagnostic
+  - action: utter_ask_diagnostic
+  - intent: ask_parts
+  - action: utter_ask_parts
+
+- story: complete conversation
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_services
+  - action: utter_ask_services
+  - intent: ask_appointment
+  - action: utter_ask_appointment
+  - intent: thanks
+  - action: utter_thanks
+  - intent: goodbye
+  - action: utter_goodbye

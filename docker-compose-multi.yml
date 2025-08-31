@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+
+  dragonforged_v2:
+    image: rasa/rasa:3.6.21
+    container_name: dragonforged_v2
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./bots/dragonforged_bot_v2/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  zlatna_kosa:
+    image: rasa/rasa:3.6.21
+    container_name: zlatna_kosa
+    ports:
+      - "5006:5005"
+    volumes:
+      - ./bots/zlatna_kosa_salon/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  zlatna_vilitsa:
+    image: rasa/rasa:3.6.21
+    container_name: zlatna_vilitsa
+    ports:
+      - "5008:5005"
+    volumes:
+      - ./bots/zlatna_vilitsa_restaurant/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  grand_sofia:
+    image: rasa/rasa:3.6.21
+    container_name: grand_sofia
+    ports:
+      - "5009:5005"
+    volumes:
+      - ./bots/grand_sofia_hotel/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  zdrave_medical:
+    image: rasa/rasa:3.6.21
+    container_name: zdrave_medical
+    ports:
+      - "5010:5005"
+    volumes:
+      - ./bots/zdrave_medical_center/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  moto_expert:
+    image: rasa/rasa:3.6.21
+    container_name: moto_expert
+    ports:
+      - "5011:5005"
+    volumes:
+      - ./bots/moto_expert_autoservice/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: multi-bot-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./web_interfaces:/var/www/html
+    depends_on:
+      - dragonforged_v2
+      - zlatna_kosa
+      - zlatna_vilitsa
+      - grand_sofia
+      - zdrave_medical
+      - moto_expert
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge

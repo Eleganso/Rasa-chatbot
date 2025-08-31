@@ -1,0 +1,129 @@
+{
+  "bots": {
+    "dragonforged_v2": {
+      "name": "DragonForged Dreams V2",
+      "path": "bots/dragonforged_bot_v2/rasa",
+      "port": 5005,
+      "description": "DragonForged Dreams Bot V2 - IT услуги и консултации",
+      "web_interface": "bots/dragonforged_bot_v2/web/index.html",
+      "domain": "dragonforgeddreams.com",
+      "vps_ip": "37.60.225.86",
+      "features": [
+        "QR меню хостинг",
+        "Чатботове",
+        "Telegram ботове", 
+        "Уебсайт разработка",
+        "SEO оптимизация",
+        "Техническа поддръжка"
+      ]
+    },
+    "zlatna_kosa": {
+      "name": "Салон 'Златна коса'",
+      "path": "bots/zlatna_kosa_salon/rasa", 
+      "port": 5006,
+      "description": "Салон 'Златна коса' - Красив салон и услуги",
+      "web_interface": "bots/zlatna_kosa_salon/web/index.html",
+      "domain": "zlatnakosa.bg",
+      "vps_ip": "37.60.225.86",
+      "features": [
+        "Подстригване и оформяне",
+        "Боядисване",
+        "Грижи за лице",
+        "Маникюр и педикюр",
+        "Грижи за вежди и мигли"
+      ]
+    },
+    "zlatna_vilitsa": {
+      "name": "Ресторант 'Златна вилица'",
+      "path": "bots/zlatna_vilitsa_restaurant/rasa",
+      "port": 5007,
+      "description": "Ресторант 'Златна вилица' - Автентични вкусове и топла атмосфера",
+      "web_interface": "bots/zlatna_vilitsa_restaurant/web/index.html",
+      "domain": "zlatnavilitsa.bg",
+      "vps_ip": "37.60.225.86",
+      "features": [
+        "Меню и ястия",
+        "Промоции и оферти",
+        "Резервации на маса",
+        "Доставка на храна",
+        "Информация за ресторанта"
+      ]
+    },
+    "grand_sofia": {
+      "name": "Хотел 'Гранд София'",
+      "path": "bots/grand_sofia_hotel/rasa",
+      "port": 5008,
+      "description": "Хотел 'Гранд София' - Луксозно гостоприемство в сърцето на столицата",
+      "web_interface": "bots/grand_sofia_hotel/web/index.html",
+      "domain": "grandsofia.bg",
+      "vps_ip": "37.60.225.86",
+      "features": [
+        "Стаи и апартаменти",
+        "СПА и уелнес",
+        "Ресторант и бар",
+        "Бизнес услуги",
+        "Резервации и промоции"
+      ]
+    },
+            "zdravet_plus": {
+          "name": "Медицински център 'Здраве+'",
+          "path": "bots/zdravet_plus_medical/rasa",
+          "port": 5009,
+          "description": "Медицински център 'Здраве+' - Вашето здраве е наш приоритет",
+          "web_interface": "bots/zdravet_plus_medical/web/index.html",
+          "domain": "zdrave.bg",
+          "vps_ip": "37.60.225.86",
+          "features": [
+            "Общопрактикуващ лекар",
+            "Кардиология",
+            "Ортопедия",
+            "Лабораторни изследвания",
+            "Стоматология и физиотерапия"
+          ]
+        },
+        "moto_expert": {
+          "name": "Автосервиз 'Мото Експерт'",
+          "path": "bots/moto_expert_auto/rasa",
+          "port": 5010,
+          "description": "Автосервиз 'Мото Експерт' - Вашият надежден партньор за автомобилни услуги",
+          "web_interface": "bots/moto_expert_auto/web/index.html",
+          "domain": "motoexpert.bg",
+          "vps_ip": "37.60.225.86",
+          "features": [
+            "Диагностика и ремонт",
+            "Спирачна система",
+            "Окачване и управление",
+            "Електрическа система",
+            "Маслени услуги и гуми"
+          ]
+        }
+
+  },
+  "vps": {
+    "ip": "37.60.225.86",
+    "provider": "Contabo",
+    "specs": {
+      "cpu": "4 vCPU",
+      "ram": "8GB",
+      "storage": "200GB NVMe",
+      "bandwidth": "Unlimited"
+    }
+  },
+  "ports": {
+    "dragonforged_v2": 5005,
+    "zlatna_kosa": 5006,
+    "zlatna_vilitsa": 5007,
+    "grand_sofia": 5008,
+    "zdravet_plus": 5009,
+    "moto_expert": 5010,
+    "nginx": 80,
+    "ssl": 443
+  },
+  "deployment": {
+    "docker_compose": true,
+    "nginx_reverse_proxy": true,
+    "ssl_enabled": false,
+    "auto_restart": true,
+    "monitoring": true
+  }
+}
