@@ -1,0 +1,244 @@
+version: '3.1'
+nlu:
+- intent: greet
+  examples: '- hey
+
+    - hello
+
+    - hi
+
+    - hello there
+
+    - good morning
+
+    - good evening
+
+    - moin
+
+    - hey there
+
+    - let''s go
+
+    - hey dude
+
+    - goodmorning
+
+    - goodevening
+
+    - good afternoon
+
+    '
+- intent: goodbye
+  examples: '- cu
+
+    - good by
+
+    - cee you later
+
+    - good night
+
+    - bye
+
+    - goodbye
+
+    - have a nice day
+
+    - see you around
+
+    - bye bye
+
+    - see you later
+
+    '
+- intent: affirm
+  examples: '- yes
+
+    - y
+
+    - indeed
+
+    - of course
+
+    - that sounds good
+
+    - correct
+
+    '
+- intent: deny
+  examples: '- no
+
+    - n
+
+    - never
+
+    - I don''t think so
+
+    - don''t like that
+
+    - no way
+
+    - not really
+
+    '
+- intent: mood_great
+  examples: '- perfect
+
+    - great
+
+    - amazing
+
+    - feeling like a king
+
+    - wonderful
+
+    - I am feeling very good
+
+    - I am great
+
+    - I am amazing
+
+    - I am going to save the world
+
+    - super stoked
+
+    - extremely good
+
+    - so so perfect
+
+    - so good
+
+    - so perfect
+
+    '
+- intent: mood_unhappy
+  examples: '- my day was horrible
+
+    - I am sad
+
+    - I don''t feel very well
+
+    - I am disappointed
+
+    - super sad
+
+    - I''m so sad
+
+    - I''m sad
+
+    - I am sad
+
+    - I am unhappy
+
+    - I have not felt like this
+
+    - my day was horrible
+
+    - I am feeling very bad
+
+    - I am very bad
+
+    - I am extremely bad
+
+    - really sad
+
+    - so sad
+
+    '
+- intent: bot_challenge
+  examples: '- are you a bot?
+
+    - are you a human?
+
+    - am I talking to a bot?
+
+    - am I talking to a human?
+
+    '
+
+- intent: weather
+  examples: |
+    - what's the weather like
+    - how's the weather
+    - weather forecast
+    - is it raining
+    - temperature today
+    - weather today
+    - what's the temperature
+    - is it sunny
+    - weather report
+    - климатични условия
+    - какво е времето
+    - времето днес
+    - ще вали ли
+    - температурата
+
+- intent: help
+  examples: |
+    - help
+    - I need help
+    - can you help me
+    - what can you do
+    - how can you help
+    - assistance
+    - support
+    - помощ
+    - нужна ми е помощ
+    - можеш ли да ми помогнеш
+    - какво можеш да правиш
+
+- intent: thanks
+  examples: |
+    - thanks
+    - thank you
+    - thanks a lot
+    - thank you very much
+    - thanks so much
+    - благодаря
+    - мерси
+    - благодаря ти
+    - много благодаря
+
+- intent: joke
+  examples: |
+    - tell me a joke
+    - say something funny
+    - make me laugh
+    - joke
+    - funny story
+    - разкажи ми виц
+    - кажи нещо забавно
+    - разсмеши ме
+    - виц
+
+- intent: time
+  examples: |
+    - what time is it
+    - current time
+    - time now
+    - what's the time
+    - колко е часът
+    - текущо време
+    - сегашно време
+    - часът
+
+- intent: name
+  examples: |
+    - what's your name
+    - what should I call you
+    - who are you
+    - your name
+    - как се казваш
+    - какво е твоето име
+    - кой си ти
+    - твоето име
+
+- intent: capabilities
+  examples: |
+    - what can you do
+    - your capabilities
+    - what are your features
+    - what do you do
+    - какво можеш да правиш
+    - твоите възможности
+    - какви са функциите ти
+    - какво правиш

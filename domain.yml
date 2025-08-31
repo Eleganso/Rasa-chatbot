@@ -1,0 +1,120 @@
+version: '3.1'
+intents:
+- greet
+- goodbye
+- affirm
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+- weather
+- help
+- thanks
+- joke
+- time
+- name
+- capabilities
+entities:
+- name
+slots:
+  name:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: name
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  - text: Hello! How are you doing?
+  - text: Hi there! How are you?
+  - text: Здравей! Как си?
+  - text: Привет! Как върви?
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  - text: I hope this helps you feel better!
+  utter_did_that_help:
+  - text: Did that help you?
+  - text: Did that make you feel better?
+  utter_happy:
+  - text: Great, carry on!
+  - text: Excellent! Keep it up!
+  utter_goodbye:
+  - text: Bye
+  - text: Goodbye!
+  - text: See you around!
+  - text: Bye bye!
+  - text: Довиждане!
+  - text: Чао!
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_weather:
+  - text: I'm sorry, I can't check the weather right now. But I can tell you a joke
+      to brighten your day!
+  - text: Съжалявам, не мога да проверя времето сега. Но мога да ти разкажа виц!
+  utter_help:
+  - text: 'I can help you with:
+
+      - Greetings and conversations
+
+      - Telling jokes
+
+      - Checking the time
+
+      - Answering questions
+
+      - Making you feel better when you''re sad'
+  - text: 'Мога да ти помогна с:
+
+      - Поздравления и разговори
+
+      - Разказване на вицове
+
+      - Проверка на часа
+
+      - Отговаряне на въпроси
+
+      - Да те развеселя когато си тъжен'
+  utter_thanks:
+  - text: You're welcome! 😊
+  - text: Моля! 😊
+  - text: Радвам се да помогна!
+  utter_joke:
+  - text: Why don't scientists trust atoms? Because they make up everything! 😄
+  - text: Защо учените не се доверяват на атомите? Защото те съставят всичко! 😄
+  - text: What do you call a bear with no teeth? A gummy bear! 🐻
+  - text: Как наричаш мечка без зъби? Желатинена мечка! 🐻
+  utter_time:
+  - text: I can't tell you the exact time, but I can tell you that time is what keeps
+      everything from happening at once! 😉
+  - text: Не мога да ти кажа точния час, но мога да ти кажа, че времето е това, което
+      не позволява всичко да се случва наведнъж! 😉
+  utter_name:
+  - text: I'm RasaBot, your friendly AI assistant! 🤖
+  - text: Аз съм RasaBot, твоят приятелски AI асистент! 🤖
+  utter_capabilities:
+  - text: 'I''m a conversational AI that can:
+
+      - Chat with you
+
+      - Tell jokes
+
+      - Help you feel better
+
+      - Answer questions
+
+      - And much more! What would you like to know?'
+  - text: 'Аз съм разговорен AI, който може да:
+
+      - Разговаря с теб
+
+      - Разказва вицове
+
+      - Те развесели
+
+      - Отговаря на въпроси
+
+      - И още много! Какво искаш да знаеш?'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
