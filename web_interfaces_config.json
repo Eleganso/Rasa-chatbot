@@ -1,0 +1,44 @@
+{
+  "dragonforged_bot_v2": {
+    "name": "DragonForgedDreams V2",
+    "local_port": 5005,
+    "vps_path": "/dragonforged-v2",
+    "color": "#8B4513",
+    "description": "Фентъзи RPG бот"
+  },
+  "zlatna_kosa_salon": {
+    "name": "Салон \"Златна коса\"",
+    "local_port": 5006,
+    "vps_path": "/zlatna-kosa",
+    "color": "#FFD700",
+    "description": "Козметичен салон"
+  },
+  "zlatna_vilitsa_restaurant": {
+    "name": "Ресторант \"Златна вилица\"",
+    "local_port": 5007,
+    "vps_path": "/zlatna-vilitsa",
+    "color": "#FFA500",
+    "description": "Ресторант"
+  },
+  "grand_sofia_hotel": {
+    "name": "Хотел \"Гранд София\"",
+    "local_port": 5008,
+    "vps_path": "/grand-sofia",
+    "color": "#4169E1",
+    "description": "Луксозен хотел"
+  },
+  "zdrave_medical_center": {
+    "name": "Медицински център \"Здраве+\"",
+    "local_port": 5009,
+    "vps_path": "/zdrave-medical",
+    "color": "#32CD32",
+    "description": "Медицински център"
+  },
+  "moto_expert_autoservice": {
+    "name": "Автосервиз \"Мото Експерт\"",
+    "local_port": 5010,
+    "vps_path": "/moto-expert",
+    "color": "#DC143C",
+    "description": "Автосервиз"
+  }
+}

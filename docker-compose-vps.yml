@@ -1,0 +1,111 @@
+version: '3.8'
+
+services:
+  # DragonForged Bot V2
+  dragonforged_v2:
+    image: rasa/rasa:3.6.21
+    container_name: dragonforged_v2
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./bots/dragonforged_bot_v2/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  # Салон Златна коса
+  zlatna_kosa:
+    image: rasa/rasa:3.6.21
+    container_name: zlatna_kosa
+    ports:
+      - "5006:5005"
+    volumes:
+      - ./bots/zlatna_kosa_salon/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  # Ресторант Златна вилица
+  zlatna_vilitsa:
+    image: rasa/rasa:3.6.21
+    container_name: zlatna_vilitsa
+    ports:
+      - "5007:5005"
+    volumes:
+      - ./bots/zlatna_vilitsa_restaurant/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  # Хотел Гранд София
+  grand_sofia:
+    image: rasa/rasa:3.6.21
+    container_name: grand_sofia
+    ports:
+      - "5008:5005"
+    volumes:
+      - ./bots/grand_sofia_hotel/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  # Медицински център Здраве+
+  zdravet_plus:
+    image: rasa/rasa:3.6.21
+    container_name: zdravet_plus
+    ports:
+      - "5009:5005"
+    volumes:
+      - ./bots/zdravet_plus_medical/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  # Автосервиз Мото Експерт
+  moto_expert:
+    image: rasa/rasa:3.6.21
+    container_name: moto_expert
+    ports:
+      - "5010:5005"
+    volumes:
+      - ./bots/moto_expert_auto/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: multi-bot-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./bots:/var/www/bots
+    depends_on:
+      - dragonforged_v2
+      - zlatna_kosa
+      - zlatna_vilitsa
+      - grand_sofia
+      - zdravet_plus
+      - moto_expert
+    restart: unless-stopped
+    networks:
+      - bot-network
+
+networks:
+  bot-network:
+    driver: bridge

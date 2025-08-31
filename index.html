@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МУЛТИ-БОТ СИСТЕМА - Главна страница</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .bots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .bot-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .bot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .bot-header {
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        .bot-header h3 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+
+        .bot-header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .bot-content {
+            padding: 20px;
+        }
+
+        .bot-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .bot-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bot-link {
+            display: inline-block;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            transition: all 0.3s;
+            border: 2px solid;
+        }
+
+        .bot-link.primary {
+            background: var(--bot-color);
+            color: white;
+            border-color: var(--bot-color);
+        }
+
+        .bot-link.primary:hover {
+            background: var(--bot-color-dark);
+            border-color: var(--bot-color-dark);
+            transform: scale(1.05);
+        }
+
+        .bot-link.secondary {
+            background: transparent;
+            color: var(--bot-color);
+            border-color: var(--bot-color);
+        }
+
+        .bot-link.secondary:hover {
+            background: var(--bot-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            background: #ccc;
+        }
+
+        .status-indicator.online {
+            background: #32CD32;
+        }
+
+        .status-indicator.offline {
+            background: #DC143C;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .bots-grid {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            
+            .bot-card {
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Бот специфични цветове */
+        .bot-dragonforged {
+            --bot-color: #8B4513;
+            --bot-color-dark: #654321;
+        }
+
+        .bot-zlatna-kosa {
+            --bot-color: #FFD700;
+            --bot-color-dark: #FFA500;
+        }
+
+        .bot-zlatna-vilitsa {
+            --bot-color: #FFA500;
+            --bot-color-dark: #FF8C00;
+        }
+
+        .bot-grand-sofia {
+            --bot-color: #4169E1;
+            --bot-color-dark: #1E3A8A;
+        }
+
+        .bot-zdrave-medical {
+            --bot-color: #32CD32;
+            --bot-color-dark: #228B22;
+        }
+
+        .bot-moto-expert {
+            --bot-color: #DC143C;
+            --bot-color-dark: #B22222;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 МУЛТИ-БОТ СИСТЕМА</h1>
+            <p>Добре дошли в системата за управление на чат ботове</p>
+        </div>
+
+        <div class="bots-grid">
+            <!-- DragonForgedDreams V2 -->
+            <div class="bot-card bot-dragonforged">
+                <div class="bot-header" style="background: linear-gradient(135deg, #8B4513, #654321);">
+                    <h3>🐉 DragonForgedDreams V2</h3>
+                    <p>Фентъзи RPG бот</p>
+                </div>
+                <div class="bot-content">
+                    <div class="bot-description">
+                        Приключенски бот за фентъзи RPG игри. Помога с квестове, персонажи и стратегии.
+                    </div>
+                    <div class="bot-links">
+                        <a href="http://localhost:8080/dragonforged/" class="bot-link primary" target="_blank">
+                            <span class="status-indicator" id="status-dragonforged">●</span>
+                            Отвори чат
+                        </a>
+                        <a href="http://localhost:5005/webhooks/rest/webhook" class="bot-link secondary" target="_blank">
+                            API Endpoint
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Салон "Златна коса" -->
+            <div class="bot-card bot-zlatna-kosa">
+                <div class="bot-header" style="background: linear-gradient(135deg, #FFD700, #FFA500);">
+                    <h3>💇‍♀️ Салон "Златна коса"</h3>
+                    <p>Козметичен салон</p>
+                </div>
+                <div class="bot-content">
+                    <div class="bot-description">
+                        Виртуален асистент за козметичен салон. Помога с резервации, услуги и съвети.
+                    </div>
+                    <div class="bot-links">
+                        <a href="http://localhost:8080/zlatna-kosa/" class="bot-link primary" target="_blank">
+                            <span class="status-indicator" id="status-zlatna-kosa">●</span>
+                            Отвори чат
+                        </a>
+                        <a href="http://localhost:5006/webhooks/rest/webhook" class="bot-link secondary" target="_blank">
+                            API Endpoint
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ресторант "Златна вилица" -->
+            <div class="bot-card bot-zlatna-vilitsa">
+                <div class="bot-header" style="background: linear-gradient(135deg, #FFA500, #FF8C00);">
+                    <h3>🍽️ Ресторант "Златна вилица"</h3>
+                    <p>Ресторант</p>
+                </div>
+                <div class="bot-content">
+                    <div class="bot-description">
+                        Ресторантен асистент. Помога с меню, резервации и специални предложения.
+                    </div>
+                    <div class="bot-links">
+                        <a href="http://localhost:8080/zlatna-vilitsa/" class="bot-link primary" target="_blank">
+                            <span class="status-indicator" id="status-zlatna-vilitsa">●</span>
+                            Отвори чат
+                        </a>
+                        <a href="http://localhost:5007/webhooks/rest/webhook" class="bot-link secondary" target="_blank">
+                            API Endpoint
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Хотел "Гранд София" -->
+            <div class="bot-card bot-grand-sofia">
+                <div class="bot-header" style="background: linear-gradient(135deg, #4169E1, #1E3A8A);">
+                    <h3>🏨 Хотел "Гранд София"</h3>
+                    <p>Луксозен хотел</p>
+                </div>
+                <div class="bot-content">
+                    <div class="bot-description">
+                        Хотелен асистент. Помога с резервации, услуги и информация за стаи.
+                    </div>
+                    <div class="bot-links">
+                        <a href="http://localhost:8080/grand-sofia/" class="bot-link primary" target="_blank">
+                            <span class="status-indicator" id="status-grand-sofia">●</span>
+                            Отвори чат
+                        </a>
+                        <a href="http://localhost:5008/webhooks/rest/webhook" class="bot-link secondary" target="_blank">
+                            API Endpoint
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Медицински център "Здраве+" -->
+            <div class="bot-card bot-zdrave-medical">
+                <div class="bot-header" style="background: linear-gradient(135deg, #32CD32, #228B22);">
+                    <h3>🏥 Медицински център "Здраве+"</h3>
+                    <p>Медицински център</p>
+                </div>
+                <div class="bot-content">
+                    <div class="bot-description">
+                        Медицински асистент. Помога с записвания, информация и здравни съвети.
+                    </div>
+                    <div class="bot-links">
+                        <a href="http://localhost:8080/zdrave-medical/" class="bot-link primary" target="_blank">
+                            <span class="status-indicator" id="status-zdrave-medical">●</span>
+                            Отвори чат
+                        </a>
+                        <a href="http://localhost:5009/webhooks/rest/webhook" class="bot-link secondary" target="_blank">
+                            API Endpoint
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Автосервиз "Мото Експерт" -->
+            <div class="bot-card bot-moto-expert">
+                <div class="bot-header" style="background: linear-gradient(135deg, #DC143C, #B22222);">
+                    <h3>🔧 Автосервиз "Мото Експерт"</h3>
+                    <p>Автосервиз</p>
+                </div>
+                <div class="bot-content">
+                    <div class="bot-description">
+                        Автосервизен асистент. Помога с резервации, диагностика и ремонти.
+                    </div>
+                    <div class="bot-links">
+                        <a href="http://localhost:8080/moto-expert/" class="bot-link primary" target="_blank">
+                            <span class="status-indicator" id="status-moto-expert">●</span>
+                            Отвори чат
+                        </a>
+                        <a href="http://localhost:5010/webhooks/rest/webhook" class="bot-link secondary" target="_blank">
+                            API Endpoint
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 Мулти-бот система | Всички ботове са разработени с Rasa Framework</p>
+        </div>
+    </div>
+
+    <script>
+        // Проверка на статуса на ботовете
+        const bots = [
+            { id: 'dragonforged', port: 5005 },
+            { id: 'zlatna-kosa', port: 5006 },
+            { id: 'zlatna-vilitsa', port: 5007 },
+            { id: 'grand-sofia', port: 5008 },
+            { id: 'zdrave-medical', port: 5009 },
+            { id: 'moto-expert', port: 5010 }
+        ];
+
+        async function checkBotStatus(bot) {
+            try {
+                const response = await fetch(`http://localhost:${bot.port}/`, {
+                    method: 'GET',
+                    timeout: 3000
+                });
+                
+                const statusIndicator = document.getElementById(`status-${bot.id}`);
+                if (response.ok) {
+                    statusIndicator.className = 'status-indicator online';
+                    statusIndicator.title = 'Онлайн';
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (error) {
+                const statusIndicator = document.getElementById(`status-${bot.id}`);
+                statusIndicator.className = 'status-indicator offline';
+                statusIndicator.title = 'Офлайн';
+            }
+        }
+
+        // Проверка на всички ботове
+        function checkAllBots() {
+            bots.forEach(bot => {
+                checkBotStatus(bot);
+            });
+        }
+
+        // Проверка при зареждане
+        checkAllBots();
+
+        // Проверка на всеки 30 секунди
+        setInterval(checkAllBots, 30000);
+    </script>
+</body>
+</html>

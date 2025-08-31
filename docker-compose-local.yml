@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+
+  dragonforged_v2:
+    image: rasa/rasa:3.6.15
+    container_name: dragonforged_v2_local
+    ports:
+      - "5005:5005"
+    volumes:
+      - ./bots/dragonforged_bot_v2/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network-local
+
+  zlatna_kosa:
+    image: rasa/rasa:3.6.15
+    container_name: zlatna_kosa_local
+    ports:
+      - "5006:5005"
+    volumes:
+      - ./bots/zlatna_kosa_salon/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network-local
+
+  zlatna_vilitsa:
+    image: rasa/rasa:3.6.15
+    container_name: zlatna_vilitsa_local
+    ports:
+      - "5007:5005"
+    volumes:
+      - ./bots/zlatna_vilitsa_restaurant/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network-local
+
+  grand_sofia:
+    image: rasa/rasa:3.6.15
+    container_name: grand_sofia_local
+    ports:
+      - "5008:5005"
+    volumes:
+      - ./bots/grand_sofia_hotel/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network-local
+
+  zdrave_medical:
+    image: rasa/rasa:3.6.15
+    container_name: zdrave_medical_local
+    ports:
+      - "5009:5005"
+    volumes:
+      - ./bots/zdravet_plus_medical/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network-local
+
+  moto_expert:
+    image: rasa/rasa:3.6.15
+    container_name: moto_expert_local
+    ports:
+      - "5010:5005"
+    volumes:
+      - ./bots/moto_expert_auto/rasa:/app
+    working_dir: /app
+    command: run --enable-api --cors "*" --port 5005
+    restart: unless-stopped
+    networks:
+      - bot-network-local
+
+  nginx-local:
+    image: nginx:alpine
+    container_name: multi-bot-nginx-local
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx-local.conf:/etc/nginx/nginx.conf
+      - ./bots:/var/www/html/bots
+    depends_on:
+      - dragonforged_v2
+      - zlatna_kosa
+      - zlatna_vilitsa
+      - grand_sofia
+      - zdrave_medical
+      - moto_expert
+    restart: unless-stopped
+    networks:
+      - bot-network-local
+
+networks:
+  bot-network-local:
+    driver: bridge
